@@ -20,26 +20,31 @@ builds:
 archives:
   - format: tar.gz
     name_template: '{{ .ProjectName }}-{{ .Os }}-{{ .Arch }}'
-#nfpms:
-#  - id: tftools
-#    package_name: tftools
-#    homepage: https://github.com/containerscrew/tftools
-#    description: Easy CLI with useful terraform/terragrunt tools
-#    maintainer: Containerscrew <info@containerscrew.com>
-#    license: Apache 2.0 license
-#    formats:
-#      - apk
-#      - deb
-#      - rpm
+nfpms:
+  - id: tftools
+    package_name: tftools
+    homepage: https://github.com/containerscrew/tftools
+    description: Easy CLI with useful terraform/terragrunt tools
+    maintainer: Containerscrew <info@containerscrew.com>
+    license: Apache 2.0 license
+    formats:
+      - apk
+      - deb
+      - rpm
 checksum:
   name_template: '{{ .ProjectName }}-SHA256SUMS'
   algorithm: sha256
+signs:
+  - artifacts: checksum
+    args: ["--batch", "-u", "{{ .Env.GPG_FINGERPRINT }}", "--output", "${signature}", "--detach-sign", "${artifact}"]
 snapshot:
   name_template: "{{ .Tag }}"
 release:
   draft: false
 changelog:
   sort: asc
+  skip: false
+  use: github
   filters:
     exclude:
       - '^docs:'

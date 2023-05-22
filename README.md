@@ -19,13 +19,13 @@
 - [Installation](#installation)
   - [Using go](#using-go)
   - [Using brew](#using-brew)
-  - [Using release binary](#using-release-binary)
+  - [Using release binary (pending to finish this)](#using-release-binary-pending-to-finish-this)
     - [Linux](#linux)
     - [Mac OSX](#mac-osx)
     - [Supported OS](#supported-os)
   - [Check version](#check-version)
-  - [Function for ~/.zshrc](#function-for-zshrc)
 - [Usage](#usage)
+  - [Function for ~/.zshrc](#function-for-zshrc)
 - [Available tools in this CLI](#available-tools-in-this-cli)
 - [Credits](#credits)
 - [Contribution](#contribution)
@@ -96,6 +96,14 @@ rm xxxx-${CLI_ARCH}.tar.gz{,.sha256sum}
 tftools version
 ```
 
+# Usage
+
+Take a look inside [docs](./docs) folder.
+
+```bash
+tftools usage
+```
+
 ## Function for ~/.zshrc
 
 Copy [this function](scripts/tfsum.sh) in your `~/.zshrc` or `~/.bashrc` file.
@@ -121,14 +129,6 @@ function tfsum() {
 ```bash
 source ~/.zshrc
 tfsum terragrunt or tfsum terraform
-```
-
-# Usage
-
-Take a look inside [docs](./docs) folder.
-
-```bash
-tftools usage
 ```
 
 # Available tools in this CLI
