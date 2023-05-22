@@ -5,21 +5,21 @@
 class Tftools < Formula
   desc "Easy CLI with useful terraform/terragrunt tools"
   homepage "https://github.com/containerscrew/tftools"
-  version "0.1.0"
+  version "0.1.0-test"
   license "Apache 2.0 license"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/containerscrew/tftools/releases/download/v0.1.0/tftools-darwin-arm64.zip"
-      sha256 "a4a73f92778b443ea4bed7d13a06808e423827f174af0bcd0b93232cc3f2ff4f"
+      url "https://github.com/containerscrew/tftools/releases/download/v0.1.0-test/tftools-darwin-arm64.zip"
+      sha256 "6321467f9de6b2ca5fb8ea92d007818006af27c8a807ac003f456efb5c6157c8"
 
       def install
         bin.install "tftools"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/containerscrew/tftools/releases/download/v0.1.0/tftools-darwin-amd64.zip"
-      sha256 "57ae5778b29a48627d71e7c14227168f216f36713a33c858c491e98d9f43d36f"
+      url "https://github.com/containerscrew/tftools/releases/download/v0.1.0-test/tftools-darwin-amd64.zip"
+      sha256 "73ab3dfdd5069d52db945bd2928f3e4f23cdbe1b08265e08307a15976dd7bf1c"
 
       def install
         bin.install "tftools"
@@ -29,16 +29,16 @@ class Tftools < Formula
 
   on_linux do
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/containerscrew/tftools/releases/download/v0.1.0/tftools-linux-arm64.zip"
-      sha256 "12144974ea500a08cac5be7d459f57fa02f811e0f545dd909baf460044f2f8f6"
+      url "https://github.com/containerscrew/tftools/releases/download/v0.1.0-test/tftools-linux-arm64.zip"
+      sha256 "7871e059989cdd101f392f90615bbb69fe11fe4f52fe85df95d4898c7e575236"
 
       def install
         bin.install "tftools"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/containerscrew/tftools/releases/download/v0.1.0/tftools-linux-amd64.zip"
-      sha256 "3cc9f3fa1b1b5beec92b2d697e206721613a02b848d4b649132b85848ffb0cc3"
+      url "https://github.com/containerscrew/tftools/releases/download/v0.1.0-test/tftools-linux-amd64.zip"
+      sha256 "296a97651a667feead00c7ff96e5b07c4f414214252508f07210b3650c1f4851"
 
       def install
         bin.install "tftools"
