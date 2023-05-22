@@ -1,0 +1,62 @@
+before:
+  hooks:
+    - go mod tidy
+    - go generate ./...
+builds:
+  - env:
+      - CGO_ENABLED=0
+    mod_timestamp: '{{ .CommitTimestamp }}'
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w -X cmd.version={{ .Tag }}
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    binary: 'tftools'
+archives:
+  - format: zip
+    name_template: '{{ .ProjectName }}-{{ .Os }}-{{ .Arch }}'
+#nfpms:
+#  - id: tftools
+#    package_name: tftools
+#    homepage: https://github.com/containerscrew/tftools
+#    description: Easy CLI with useful terraform/terragrunt tools
+#    maintainer: Containerscrew <info@containerscrew.com>
+#    license: Apache 2.0 license
+#    formats:
+#      - apk
+#      - deb
+#      - rpm
+checksum:
+  name_template: '{{ .ProjectName }}-SHA256SUMS'
+  algorithm: sha256
+snapshot:
+  name_template: "{{ .Tag }}"
+release:
+  draft: false
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+
+# homebrew package
+brews:
+  - # GitHub repository to push the formula
+    tap:
+      owner: containerscrew
+      name: tftools
+    name: tftools
+    url_template: "https://github.com/containerscrew/tftools/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    homepage: https://github.com/containerscrew/tftools
+    commit_author:
+      name: goreleaserbot
+      email: bot@goreleaser.com
+    folder: Formula
+    description: "Easy CLI with useful terraform/terragrunt tools"
+    license: "Apache 2.0 license"

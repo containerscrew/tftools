@@ -1,0 +1,44 @@
+name: Build 🛠️
+on:
+  push:
+    tags:
+      - '*'
+    branches:
+      - '*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Go build 🚀
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: setup-go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.20'
+          cache: false
+
+      # Generate data for embed files
+      - name: go-generate
+        run: go generate ./...
+
+      - name: security
+        uses: securego/gosec@master
+        with:
+          args: -exclude=G204 ./...
+
+      - name: lint
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: latest
+
+      - name: test
+        run: go test -v ./...
+
+      - name: build
+        run: go build

@@ -1,0 +1,35 @@
+name: Release 📦
+
+on:
+  push:
+    tags:
+      - '*'
+    branches:
+      - 'main'
+
+permissions:
+  contents: write
+
+jobs:
+  goreleaser:
+    name: Publish go releases 📦 with Goreleaser
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: setup-go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.20'
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v3
+        with:
+          distribution: goreleaser
+          version: latest
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
