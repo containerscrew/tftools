@@ -18,7 +18,7 @@ builds:
       - arm64
     binary: 'tftools'
 archives:
-  - format: zip
+  - format: tar.gz
     name_template: '{{ .ProjectName }}-{{ .Os }}-{{ .Arch }}'
 #nfpms:
 #  - id: tftools
