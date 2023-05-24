@@ -30,3 +30,6 @@ dist/
 
 # Go generates
 internal/utils/markdown_render/docs/
+
+# OSX
+.DS_Store

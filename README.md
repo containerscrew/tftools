@@ -36,15 +36,23 @@
 
 # TF summarize
 
-The concern is: I have a lot of changes in terraform and I need a clear way of the concepts that are going to be deleted|changed|created only with the resource address. It can be messy to have a super tf plan output when there are many changes.
+**The concern is:** I have a lot of changes in terraform and I need a clear way of the concepts that are going to be **deleted|changed|created** only with the resource address. It can be messy to have a super tf plan output when there are **many changes**.
 
-Then, execute `tfsum terraform`, then you will see the original output of a plan/apply and a summary only printing the resource addr and the action.
+Imagine you are going to:
+
+- Create a new s3 test bucket
+- Change your ALB ingress controller policy and vpc-cni addon
+- Delete grafana backup tool helm chart...
+
+1. Makes the appropriate changes from code.
+
+2. Execute `tfsum terraform`, then you will see the original output of a plan/apply and a summary only printing the resource addr and the action.
 
 > tfsum is a custom function. See [usage](#usage) or [tfsum.sh](scripts/tfsum.sh)
 
 ![tfsum](assets/example.png)
 
-This summarized output can be useful, for example, for:
+*This summarized output can be useful, for example, for:*
 
 * You are migrating a terraform module and there are many changes that may be important in terms of destroying/creating resources (e.g., if you are migrating an EKS module from v17.X to v19.X).
 * You use GitOps and deploy terraform from pipeline. The pipeline that makes the `terraform plan` can always show a summary of what is going to change (instead of having a super output of the original terraform plan).
@@ -57,7 +65,7 @@ Take a look inside docs [install](./docs/install.md)
 
 Take a look inside docs [usage](./docs/usage.md)
 
-tfsum usage is subcommand that renders the contents of usage.md in pretty markdown
+tfsum usage is subcommand that prints the contents of [usage.md](docs/usage.md) in pretty terminal markdown render
 
 ## Built-in subcommand
 
