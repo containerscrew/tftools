@@ -41,6 +41,10 @@
 [![Release](https://img.shields.io/github/release/containerscrew/tftools)](https://github.com/containerscrew/tftools/releases/latest)
 [![GitHub Releases Stats](https://img.shields.io/github/downloads/containerscrew/tftools/total.svg?logo=github)](https://somsubhra.github.io/github-release-stats/?username=containerscrew&repository=tftools)
 
+# TF summarize
+
+![tfsum](assets/example.png)
+
 # Installation
 
 ## Using go
