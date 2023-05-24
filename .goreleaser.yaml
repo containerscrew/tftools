@@ -23,7 +23,9 @@ archives:
 nfpms:
   - id: tftools
     package_name: tftools
+    file_name_template: '{{ .ProjectName }}-{{ .Os }}-{{ .Arch }}'
     homepage: https://github.com/containerscrew/tftools
+    vendor: Containerscrew
     description: Easy CLI with useful terraform/terragrunt tools
     maintainer: Containerscrew <info@containerscrew.com>
     license: Apache 2.0 license
@@ -31,11 +33,12 @@ nfpms:
       - apk
       - deb
       - rpm
+      - archlinux
 checksum:
-  name_template: '{{ .ProjectName }}-SHA256SUMS'
+  name_template: "{{ .ProjectName }}_checksums.txt"
   algorithm: sha256
 signs:
-  - artifacts: checksum
+  - artifacts: all
     args: ["--batch", "-u", "{{ .Env.GPG_FINGERPRINT }}", "--output", "${signature}", "--detach-sign", "${artifact}"]
 snapshot:
   name_template: "{{ .Tag }}"
