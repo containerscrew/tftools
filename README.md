@@ -18,16 +18,8 @@
 - [Badges](#badges)
 - [TF summarize](#tf-summarize)
 - [Installation](#installation)
-  - [Using go](#using-go)
-  - [Using brew](#using-brew)
-  - [Using release binary (pending to finish this)](#using-release-binary-pending-to-finish-this)
-    - [Linux](#linux)
-    - [Mac OSX](#mac-osx)
-    - [Supported OS](#supported-os)
-  - [Check version](#check-version)
 - [Usage](#usage)
   - [Function for ~/.zshrc](#function-for-zshrc)
-- [Available tools in this CLI](#available-tools-in-this-cli)
 - [Credits](#credits)
 - [Contribution](#contribution)
 - [LICENSE](#license)
@@ -57,62 +49,11 @@ This summarized output can be useful, for example, for:
 
 # Installation
 
-## Using go
-
-```bash
-go install github.com/containerscrew/tftools
-```
-
-## Using brew
-
-```bash
-brew tap containerscrew/tftools https://github.com/containerscrew/tftools
-brew install tftools
-```
-
-## Using release binary (pending to finish this)
-
-### Linux
-```bash
-TFTOOLS_CLI_VERSION=$(curl -s https://api.github.com/repos/containerscrew/tftools/releases/latest)
-TFTOOLS_CLI_ARCH=amd64
-if [ "$(uname -m)" = "aarch64" ]; then CLI_ARCH=arm64; fi
-curl -L --fail --remote-name-all https://github.com/containerscrew/tftools/releases/download/${TFTOOLS_CLI_VERSION}/XXXXX-${TFTOOLS_CLI_ARCH}.tar.gz{,.sha256sum}
-sha256sum --check xxxxxx-${CLI_ARCH}.tar.gz.sha256sum
-sudo tar xzvfC xxxxxx-${CLI_ARCH}.tar.gz /usr/local/bin
-rm xxxx-${CLI_ARCH}.tar.gz{,.sha256sum}
-```
-
-### Mac OSX
-
-```bash
-TFTOOLS_CLI_VERSION=$(curl -s https://api.github.com/repos/containerscrew/tftools/releases/latest)
-TFTOOLS_CLI_ARCH=amd64
-if [ "$(uname -m)" = "arm64" ]; then CLI_ARCH=arm64; fi
-curl -L --fail --remote-name-all https://github.com/containerscrew/tftools/releases/download/${TFTOOLS_CLI_VERSION}/XXXXX-${TFTOOLS_CLI_ARCH}.tar.gz{,.sha256sum}
-sha256sum --check xxxxxx-${CLI_ARCH}.tar.gz.sha256sum
-sudo tar xzvfC xxxxxx-${CLI_ARCH}.tar.gz /usr/local/bin
-rm xxxx-${CLI_ARCH}.tar.gz{,.sha256sum}
-```
-
-[Releases](https://github.com/containerscrew/tftools/releases)
-
-### Supported OS
-
-| OS        | ARM64 | AMD64 |
-|-----------|:-----:|------:|
-| Mac       |  √    |   √   |
-| Linux     |  √    |   √   |
-
-## Check version
-
-```bash
-tftools version
-```
+Take a look inside docs [install](./docs/install.md)
 
 # Usage
 
-Take a look inside [docs](./docs) folder.
+Take a look inside docs [usage](./docs/usage.md)
 
 ```bash
 tftools usage
@@ -144,12 +85,6 @@ function tfsum() {
 source ~/.zshrc
 tfsum terragrunt or tfsum terraform
 ```
-
-# Available tools in this CLI
-
-- [x] summarize `tftools summarize`: get a clear output/summary of changes when you perform a terraform/terragrunt plan
-- [ ] statemv `tftools statemv`: interactive terraform/terragrunt state mv
-- [ ] target-generator `tftools target-generator`: generates the final string of `terraform apply -target='' -target=''`command to execute applies with specific target instead of do it manually.
 
 # Credits
 - [Cobra to build beautiful CLI](https://cobra.dev/)
