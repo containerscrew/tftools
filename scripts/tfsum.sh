@@ -3,7 +3,7 @@ function tfsum() {
     then
         echo "You should type 'tfsum terraform|terragrunt'"
     else
-        echo -e "Starting tf summary...\n"
+        echo -e "Starting tf summary..."
         # Don't print output of terraform plan
         # If you don't want full plan output: $1 plan -out plan.tfplan 1> /dev/null
         $1 plan -out plan.tfplan

@@ -19,7 +19,7 @@
 - [TF summarize](#tf-summarize)
 - [Installation](#installation)
 - [Usage](#usage)
-  - [Function for ~/.zshrc](#function-for-zshrc)
+  - [Built-in subcommand](#built-in-subcommand)
 - [Credits](#credits)
 - [Contribution](#contribution)
 - [LICENSE](#license)
@@ -38,7 +38,7 @@
 
 Execute `tfsum terraform`, then you will see the original output of a plan/apply and a summary only printing the resource addr (specially when you are working with a lot of changes).
 
-> tfsum is a custom function that you will see below, you can add it into your **.zshrc** or **.bashrc**
+> tfsum is a custom function. See [usage](#usage) or [tfsum.sh](scripts/tfsum.sh)
 
 ![tfsum](assets/example.png)
 
@@ -55,35 +55,14 @@ Take a look inside docs [install](./docs/install.md)
 
 Take a look inside docs [usage](./docs/usage.md)
 
+tfsum usage is subcommand that renders the contents of usage.md in pretty markdown
+
+## Built-in subcommand
+
+`tfsum usage` is subcommand that renders the contents of usage.md in pretty markdown
+
 ```bash
 tftools usage
-```
-
-## Function for ~/.zshrc
-
-Copy [this function](scripts/tfsum.sh) in your `~/.zshrc` or `~/.bashrc` file.
-
-```bash
-function tfsum() {
-    if [ -z "$1" ];
-    then
-        echo "You should type 'tfsum terraform|terragrunt'"
-    else
-        echo -e "Starting tf summary...\n"
-        # Don't print output of terraform plan
-        # If you don't want full plan output: $1 plan -out plan.tfplan 1> /dev/null
-        $1 plan -out plan.tfplan
-        echo -e "\n\n"
-        $1 show -json plan.tfplan | tftools summarize
-        # Delete plan out file to avoid git tracking (although is included in .gitignore)
-        if [ -f "plan.tfplan" ]; then rm plan.tfplan; fi
-    fi
-}
-```
-
-```bash
-source ~/.zshrc
-tfsum terragrunt or tfsum terraform
 ```
 
 # Credits
