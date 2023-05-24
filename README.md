@@ -36,7 +36,9 @@
 
 # TF summarize
 
-Execute `tfsum terraform`, then you will see the original output of a plan/apply and a summary only printing the resource addr (specially when you are working with a lot of changes).
+The concern is: I have a lot of changes in terraform and I need a clear way of the concepts that are going to be deleted|changed|created only with the resource address. It can be messy to have a super tf plan output when there are many changes.
+
+Then, execute `tfsum terraform`, then you will see the original output of a plan/apply and a summary only printing the resource addr and the action.
 
 > tfsum is a custom function. See [usage](#usage) or [tfsum.sh](scripts/tfsum.sh)
 
