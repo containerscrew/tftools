@@ -16,6 +16,7 @@
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [Badges](#badges)
+- [TF summarize](#tf-summarize)
 - [Installation](#installation)
   - [Using go](#using-go)
   - [Using brew](#using-brew)
@@ -43,7 +44,16 @@
 
 # TF summarize
 
+Execute `tfsum terraform`, then you will see the original output of a plan/apply and a summary only printing the resource addr (specially when you are working with a lot of changes).
+
+> tfsum is a custom function that you will see below, you can add it into your **.zshrc** or **.bashrc**
+
 ![tfsum](assets/example.png)
+
+This summarized output can be useful, for example, for:
+
+* You are migrating a terraform module and there are many changes that may be important in terms of destroying/creating resources (e.g., if you are migrating an EKS module from v17.X to v19.X).
+* You use GitOps and deploy terraform from pipeline. The pipeline that makes the `terraform plan` can always show a summary of what is going to change (instead of having a super output of the original terraform plan).
 
 # Installation
 
