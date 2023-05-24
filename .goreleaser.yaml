@@ -9,7 +9,7 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      - -s -w -X cmd.version={{ .Tag }}
+      - -s -w -X github.com/containerscrew/tftools/cmd.version={{ .Tag }}
     goos:
       - linux
       - darwin

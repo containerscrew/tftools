@@ -17,10 +17,21 @@
 
 ## Using go
 
+Go install is not a good solution because in order to compile the binary you must first run go generate ./....
+
 ```bash
 go install github.com/containerscrew/tftools
 ```
-> **NOTE:** this installation mode is broken by using go:embed files. To be fixed 🛠️
+
+> **NOTE:** this will fail as I mentioned 🛠️
+
+You can do the following:
+
+```bash
+git clone https://github.com/containerscrew/tftools.git && cd tftools
+go generate ./...
+go install .
+```
 
 ## Using brew
 

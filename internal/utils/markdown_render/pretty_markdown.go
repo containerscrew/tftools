@@ -9,8 +9,8 @@ import (
 )
 
 // Embed usage documentation.
-//go:generate cp -r ../../../docs ./docs
-//go:embed docs
+//go:generate cp -r ../../../docs/usage.md ./usage.md
+//go:embed usage.md
 
 var usage embed.FS
 

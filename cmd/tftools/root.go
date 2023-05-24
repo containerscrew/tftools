@@ -24,7 +24,6 @@ var (
 // printBanner will print an ascii banner with colors
 func printBanner() {
 	templ := `{{ .AnsiColor.BrightMagenta  }} {{ .Title "tftools" "" 2 }}{{ .AnsiColor.Default }}
-   GoVersion: {{ .GoVersion }}
    Author: github.com/containerscrew
    Now: {{ .Now "Monday, 2 Jan 2006" }}`
 	banner.InitString(colorable.NewColorableStdout(), true, true, templ)
@@ -58,6 +57,6 @@ var versionCmd = &cobra.Command{
 	Short: "tftools current version",
 	Long:  "Get the cli tftools version installed",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("tftools: %v with go version %s %s/%s", version, goversion, goos, goarch)
+		fmt.Printf("tftools: %s with go version %s %s/%s", version, goversion, goos, goarch)
 	},
 }
