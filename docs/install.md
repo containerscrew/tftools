@@ -17,7 +17,7 @@
 
 ## Using go
 
-Go install is not a good solution because in order to compile the binary you must first run `go generate ./....`
+Go install is not a good solution because in order to compile the binary you must first run `go generate ./...`
 
 ```bash
 go install github.com/containerscrew/tftools
