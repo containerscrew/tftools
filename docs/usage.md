@@ -17,7 +17,7 @@ terraform plan -out plan.tfplan
 terraform show -json plan.tfplan | tftools summarize
 ```
 
-Or if you have the file in json
+Or if you have the file in json:
 
 ```bash
 terraform plan -out plan.tfplan
