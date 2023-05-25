@@ -10,6 +10,7 @@
     - [Mac OSX](#mac-osx)
     - [Supported OS](#supported-os)
   - [Check version](#check-version)
+- [Updating](#updating)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -79,4 +80,11 @@ See full [scripts](../scripts)
 
 ```bash
 tftools version
+```
+
+# Updating
+
+```bash
+brew update
+brew upgrade containerscrew/tftools/tftools
 ```
