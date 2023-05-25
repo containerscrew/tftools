@@ -17,6 +17,8 @@
 
 - [Badges](#badges)
 - [TF summarize](#tf-summarize)
+  - [Example](#example)
+  - [Steps](#steps)
 - [Installation](#installation)
 - [Usage](#usage)
   - [Built-in subcommand](#built-in-subcommand)
@@ -38,11 +40,16 @@
 
 **The concern is:** I have a lot of changes in terraform and I need a clear way of the concepts that are going to be **deleted|changed|created** only with the resource address. It can be messy to have a super tf plan output when there are **many changes**.
 
+
+## Example
+
 Imagine you are going to:
 
 - Create a new s3 test bucket
 - Change your ALB ingress controller policy and vpc-cni addon
-- Delete grafana backup tool helm chart...
+- Delete grafana backup tool helm chart
+
+## Steps
 
 1. Makes the appropriate changes from code.
 
