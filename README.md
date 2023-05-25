@@ -32,6 +32,7 @@
 
 ![Release Status](https://github.com/containerscrew/tftools/actions/workflows/release.yml/badge.svg)
 ![Build Status](https://github.com/containerscrew/tftools/actions/workflows/build.yml/badge.svg)
+![Git Leaks Status](https://github.com/containerscrew/tftools/actions/workflows/gitleaks.yml/badge.svg)
 [![License](https://img.shields.io/github/license/containerscrew/tftools)](/LICENSE)
 [![Release](https://img.shields.io/github/release/containerscrew/tftools)](https://github.com/containerscrew/tftools/releases/latest)
 [![GitHub Releases Stats](https://img.shields.io/github/downloads/containerscrew/tftools/total.svg?logo=github)](https://somsubhra.github.io/github-release-stats/?username=containerscrew&repository=tftools)
@@ -74,7 +75,7 @@ Take a look inside docs [usage](./docs/usage.md)
 
 ## Built-in subcommand
 
-`tfsum usage is subcommand that prints the contents of [usage.md](docs/usage.md) in pretty terminal markdown render
+`tfsum usage` is subcommand that prints the contents of [usage.md](docs/usage.md) in pretty terminal markdown render
 
 ```bash
 tftools usage

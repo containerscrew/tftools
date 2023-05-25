@@ -6,8 +6,6 @@ builds:
   - env:
       - CGO_ENABLED=0
     mod_timestamp: '{{ .CommitTimestamp }}'
-    flags:
-      - -trimpath
     ldflags:
       - -s -w -X github.com/containerscrew/tftools/cmd.version={{ .Tag }}
     goos:
@@ -39,7 +37,17 @@ checksum:
   algorithm: sha256
 signs:
   - artifacts: all
+    cmd: gpg2
+    signature: "${artifact}_sig"
+    output: true # for testing
     args: ["--batch", "-u", "{{ .Env.GPG_FINGERPRINT }}", "--output", "${signature}", "--detach-sign", "${artifact}"]
+    # Stdin data to be given to the signature command as stdin.
+    #
+    # Templates: allowed
+#    stdin: '{{ .Env.GPG_PASSWORD }}'
+#
+#    # StdinFile file to be given to the signature command as stdin.
+#    stdin_file: ./.password
 snapshot:
   name_template: "{{ .Tag }}"
 release:

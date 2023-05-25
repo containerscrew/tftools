@@ -57,6 +57,6 @@ var versionCmd = &cobra.Command{
 	Short: "tftools current version",
 	Long:  "Get the cli tftools version installed",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("tftools: %s with go version %s %s/%s", version, goversion, goos, goarch)
+		fmt.Printf("tftools: %v with go version %s %s/%s", version, goversion, goos, goarch)
 	},
 }
