@@ -78,7 +78,7 @@ sudo dpkg -i tftools-linux-${TFTOOLS_CLI_ARCH}.deb
 rm dpkg -i tftools-linux-${TFTOOLS_CLI_ARCH}.deb
 ```
 
-See full [scripts](./scripts)
+See full [scripts](../scripts)
 
 ### Supported OS
 
