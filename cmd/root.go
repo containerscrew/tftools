@@ -6,19 +6,11 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"runtime"
 
 	"github.com/dimiro1/banner"
 	"github.com/mattn/go-colorable"
 
 	"github.com/spf13/cobra"
-)
-
-var (
-	version   string
-	goversion = runtime.Version()
-	goos      = runtime.GOOS
-	goarch    = runtime.GOARCH
 )
 
 // printBanner will print an ascii banner with colors
@@ -49,14 +41,4 @@ func Execute() {
 		fmt.Printf("😢 %s\n", err.Error())
 		os.Exit(1)
 	}
-}
-
-// versionCmd will print the current installed version in your local
-var versionCmd = &cobra.Command{
-	Use:   "version",
-	Short: "tftools current version",
-	Long:  "Get the cli tftools version installed",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("tftools: %v with go version %s %s/%s", version, goversion, goos, goarch)
-	},
 }

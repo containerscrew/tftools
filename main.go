@@ -1,7 +1,7 @@
 package main
 
 import (
-	cmd "github.com/containerscrew/tftools/cmd/tftools"
+	"github.com/containerscrew/tftools/cmd"
 )
 
 func main() {

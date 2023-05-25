@@ -23,6 +23,7 @@
 - [Usage](#usage)
   - [Built-in subcommand](#built-in-subcommand)
 - [Credits](#credits)
+- [TO DO](#to-do)
 - [Contribution](#contribution)
 - [LICENSE](#license)
 
@@ -81,12 +82,22 @@ Take a look inside docs [usage](./docs/usage.md)
 tftools usage
 ```
 
+> Requires internet connectivity, as it fetches the [usage.md](https://raw.githubusercontent.com/containerscrew/tftools/main/docs/usage.md) file.
+
 # Credits
 - [Cobra to build beautiful CLI](https://cobra.dev/)
 - [Terraform json structs for data parsing](https://github.com/hashicorp/terraform-json)
 - [Distroless for container build](https://github.com/GoogleContainerTools/distroless)
 - [Glamour markdown render](https://github.com/charmbracelet/glamour)
 - [Official issue to solve this concern](https://github.com/hashicorp/terraform/issues/10507)
+- [Git leaks](https://github.com/gitleaks/gitleaks-action)
+
+# TO DO
+
+* Improve error handling
+* Create generic `install.sh`
+* Add tests, although I have no experience
+* Code refactor is certainly needed!
 
 # Contribution
 

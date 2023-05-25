@@ -1,26 +1,43 @@
 package markdownrender
 
 import (
-	"embed"
 	"fmt"
+	"io"
 	"log"
+	"net/http"
 
 	"github.com/charmbracelet/glamour"
 )
 
-// Embed usage documentation.
-//go:generate cp -r ../../../docs/usage.md ./usage.md
-//go:embed usage.md
+const (
+	usageURL = "https://raw.githubusercontent.com/containerscrew/tftools/main/docs/usage.md"
+)
 
-var usage embed.FS
+func ReadUsageFile() string {
+	resp, err := http.Get(usageURL)
 
-func RenderUsage() {
-	usage, err := usage.ReadFile("docs/usage.md")
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
-	out, err := glamour.Render(string(usage), "dark")
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		log.Println(resp.StatusCode)
+	}
+
+	data, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Println(err)
+	}
+
+	return string(data)
+}
+
+func RenderUsage() {
+	data := ReadUsageFile()
+
+	out, err := glamour.Render(data, "dark")
 	if err != nil {
 		log.Println(err)
 	}
