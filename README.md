@@ -20,6 +20,7 @@
   - [Example](#example)
   - [Steps](#steps)
 - [Installation](#installation)
+  - [Quick installation (latest version)](#quick-installation-latest-version)
 - [Usage](#usage)
   - [Built-in subcommand](#built-in-subcommand)
 - [Credits](#credits)
@@ -67,6 +68,12 @@ Imagine you are going to:
 * You use GitOps and deploy terraform from pipeline. The pipeline that makes the `terraform plan` can always show a summary of what is going to change (instead of having a super output of the original terraform plan).
 
 # Installation
+
+## Quick installation (latest version)
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/containerscrew/tftools/main/scripts/install.sh | bash
+```
 
 Take a look inside docs [install](./docs/install.md)
 
