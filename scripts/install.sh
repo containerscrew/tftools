@@ -94,7 +94,7 @@ esac
 OS=$(echo $OS | tr '[:upper:]' '[:lower:]')
 
 download_release() {
-  TFTOOLS_LATEST_VERSION=$(curl -s https://api.github.com/repos/containerscrew/${PROJECT/releases/latest | jq -r ".name")
+  TFTOOLS_LATEST_VERSION=$(curl -s https://api.github.com/repos/containerscrew/${PROJECT}/releases/latest | jq -r ".name")
   INSTALLATION_PATH="/usr/local/bin/"
   tmpdir=$(mktemp -d)
 
