@@ -1,5 +1,7 @@
 #! /usr/bin/bash
 
+PROJECT="tftools"
+
 set -eu
 declare -a commands=("curl" "jq" "tar")
 
@@ -32,11 +34,11 @@ command_exists
 
 happyexit(){
   echo ""
-  echo "tftools successfully installed! 🎉"
+  echo "${PROJECT} successfully installed! 🎉"
   echo ""
   echo "Now run:"
   echo ""
-  echo "  tftools usage"
+  echo "  ${PROJECT} usage"
   echo ""
   exit 0
 }
@@ -59,7 +61,7 @@ case $OS in
         cli_arch=$arch
         ;;
       *)
-        echo "There is no tftools $OS support for $arch"
+        echo "There is no ${PROJECT} $OS support for $arch"
         exit 1
         ;;
     esac
@@ -79,27 +81,27 @@ case $OS in
         cli_arch=$arch
         ;;
       *)
-        echo "There is no tftools $OS support for $arch"
+        echo "There is no ${PROJECT} $OS support for $arch"
         exit 1
         ;;
     esac
     ;;
   *)
-    echo "There is no tftools $OS support for $arch"
+    echo "There is no ${PROJECT} $OS support for $arch"
     exit 1
     ;;
 esac
 OS=$(echo $OS | tr '[:upper:]' '[:lower:]')
 
 download_release() {
-  TFTOOLS_LATEST_VERSION=$(curl -s https://api.github.com/repos/containerscrew/tftools/releases/latest | jq -r ".name")
+  TFTOOLS_LATEST_VERSION=$(curl -s https://api.github.com/repos/containerscrew/${PROJECT/releases/latest | jq -r ".name")
   INSTALLATION_PATH="/usr/local/bin/"
   tmpdir=$(mktemp -d)
 
   cd $tmpdir
-  echo -e "Downloading... ${TFTOOLS_LATEST_VERSION}/tftools-${OS}-${cli_arch}.tar.gz \n"
-  curl -L --fail --remote-name-all https://github.com/containerscrew/tftools/releases/download/${TFTOOLS_LATEST_VERSION}/tftools-${OS}-${cli_arch}.tar.gz
-  tar -xzf tftools-${OS}-${cli_arch}.tar.gz tftools
+  echo -e "Downloading... ${TFTOOLS_LATEST_VERSION}/${PROJECT}-${OS}-${cli_arch}.tar.gz \n"
+  curl -L --fail --remote-name-all https://github.com/containerscrew/${PROJECT}/releases/download/${TFTOOLS_LATEST_VERSION}/${PROJECT}-${OS}-${cli_arch}.tar.gz
+  tar -xzf ${PROJECT}-${OS}-${cli_arch}.tar.gz ${PROJECT}
 }
 
 # Start install
@@ -107,10 +109,10 @@ download_release
 
 if [ "$EUID" -ne 0 ]
   then command_exists sudo
-    sudo mv tftools $INSTALLATION_PATH
+    sudo mv ${PROJECT} $INSTALLATION_PATH
   else
-    mv tftools $INSTALLATION_PATH
-  chmod +x $INSTALLATION_PATH/tftools
+    mv ${PROJECT} $INSTALLATION_PATH
+  chmod +x $INSTALLATION_PATH/${PROJECT}
 fi
 
 clean
