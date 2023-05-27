@@ -16,7 +16,7 @@ function ctrl_c(){
 command_exists() {
   for command in "${commands[@]}"
   do
-    if ! command -v $command &> /dev/null
+    if ! command -v "$command" &> /dev/null
     then
         echo "ERROR: $command could not be found. Install it!"
         exit 1
@@ -26,7 +26,7 @@ command_exists() {
 
 clean(){
   echo -e "Cleaning $tmpdir"
-  rm -r $tmpdir
+  rm -r "$tmpdir"
 }
 
 # Pre flight checks
@@ -91,17 +91,17 @@ case $OS in
     exit 1
     ;;
 esac
-OS=$(echo $OS | tr '[:upper:]' '[:lower:]')
+OS=$(echo "$OS" | tr '[:upper:]' '[:lower:]')
 
 download_release() {
-  TFTOOLS_LATEST_VERSION=$(curl -s https://api.github.com/repos/containerscrew/${PROJECT}/releases/latest | jq -r ".name")
+  TFTOOLS_LATEST_VERSION=$(curl -s https://api.github.com/repos/containerscrew/$PROJECT/releases/latest | jq -r ".name")
   INSTALLATION_PATH="/usr/local/bin/"
   tmpdir=$(mktemp -d)
 
   cd $tmpdir
   echo -e "Downloading... ${TFTOOLS_LATEST_VERSION}/${PROJECT}-${OS}-${cli_arch}.tar.gz \n"
-  curl -L --fail --remote-name-all https://github.com/containerscrew/${PROJECT}/releases/download/${TFTOOLS_LATEST_VERSION}/${PROJECT}-${OS}-${cli_arch}.tar.gz
-  tar -xzf ${PROJECT}-${OS}-${cli_arch}.tar.gz ${PROJECT}
+  curl -L --fail --remote-name-all https://github.com/containerscrew/${PROJECT}/releases/download/"${TFTOOLS_LATEST_VERSION}"/${PROJECT}-"${OS}"-"${cli_arch}".tar.gz
+  tar -xzf ${PROJECT}-"${OS}"-"${cli_arch}".tar.gz ${PROJECT}
 }
 
 # Start install
