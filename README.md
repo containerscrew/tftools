@@ -98,7 +98,7 @@ tftools usage
 - [Glamour markdown render](https://github.com/charmbracelet/glamour)
 - [Official issue to solve this concern](https://github.com/hashicorp/terraform/issues/10507)
 - [Git leaks](https://github.com/gitleaks/gitleaks-action)
-- [@gilmiriam to my teacher of Golang](https://github.com/gilmiriam)
+- [To my teacher of Golang @gilmiriam](https://github.com/gilmiriam)
 
 # TO DO
 
