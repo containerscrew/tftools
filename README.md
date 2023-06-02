@@ -103,7 +103,6 @@ tftools usage
 # TO DO
 
 * Improve error handling
-* Create generic `install.sh`
 * Add tests, although I have no experience
 * Code refactor is certainly needed!
 

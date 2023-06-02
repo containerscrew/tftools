@@ -55,7 +55,7 @@ case $OS in
   Darwin)
     case $arch in
       x86_64)
-        cli_arch=""
+        cli_arch="amd64"
         ;;
       arm64)
         cli_arch=$arch
