@@ -117,7 +117,7 @@ func PrintResources(message string, resources []string, bulletSymbol string, col
 				case "~":
 					emoji = "⚠️" // Yellow warning sign for update
 				case "-":
-					emoji = "🔴" // Red circle for destroy
+					emoji = "🧨" // Red circle for destroy
 				case "#":
 					emoji = "#️⃣" // Blue diamond for tag/untag
 				case "•":
@@ -140,17 +140,16 @@ func PrintResources(message string, resources []string, bulletSymbol string, col
 	}
 }
 
-// Example usage:
 func PrintPlanSummary(showTags, showUnchanged, compact, useMarkdown bool) {
-	PrintResources("🟢 Create:", resourcesList[CREATE], "+", color.New(color.FgGreen), compact, useMarkdown)
-	PrintResources("🔄 Update:", resourcesList[UPDATE], "~", color.New(color.FgYellow), compact, useMarkdown)
-	PrintResources("💣 Destroy:", resourcesList[DELETE], "-", color.New(color.FgRed), compact, useMarkdown)
-	if showTags {
-		PrintResources("#️⃣ Tag/Untag:", resourcesList[TAG], "#", color.New(color.FgCyan), compact, useMarkdown)
-	}
 	if showUnchanged {
-		PrintResources("🔹 Unchanged:", resourcesList[NOOP], "•", color.New(color.FgBlue), compact, useMarkdown)
+		PrintResources("🔵 Unchanged:", resourcesList[NOOP], "•", color.New(color.FgBlue), compact, useMarkdown)
 	}
+	if showTags {
+		PrintResources("🟣 Tag/Untag:", resourcesList[TAG], "#", color.New(color.FgMagenta), compact, useMarkdown)
+	}
+	PrintResources("🟢 Create:", resourcesList[CREATE], "+", color.New(color.FgGreen), compact, useMarkdown)
+	PrintResources("🟡 Update:", resourcesList[UPDATE], "~", color.New(color.FgYellow), compact, useMarkdown)
+	PrintResources("🔴 Destroy:", resourcesList[DELETE], "-", color.New(color.FgRed), compact, useMarkdown)
 }
 
 func checkOnlyTagChanges(resourceChange *tfjson.ResourceChange) (bool, error) {
