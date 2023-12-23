@@ -36,6 +36,30 @@ func Parser(output []byte) {
 
 }
 
+func Target(output []byte) {
+	data := tfjson.Plan{}
+	if err := json.Unmarshal(output, &data); err != nil {
+		panic(err)
+	}
+
+	for _, resource := range data.ResourceChanges {
+		for _, changes := range resource.Change.Actions {
+			action := string(changes)
+			resourcesList[action] = append(resourcesList[action], resource.Address)
+		}
+	}
+
+	PrintAddress(resourcesList[CREATE])
+	PrintAddress(resourcesList[UPDATE])
+	PrintAddress(resourcesList[DELETE])
+}
+
+func PrintAddress(resources []string) {
+	for _, resource := range resources {
+		fmt.Println(resource)
+	}
+}
+
 func PrintResources(message string, resources []string) {
 	fmt.Println(message)
 	for _, resource := range resources {

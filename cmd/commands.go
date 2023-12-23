@@ -19,7 +19,7 @@ var (
 	goarch    = runtime.GOARCH
 )
 
-// summarizeCmd will parse the tf plan output json to scrape created|updated|deleted resources in a clear outout
+// summarizeCmd will parse the tf plan output json to scrape created|updated|deleted resources in a clear output
 var summarizeCmd = &cobra.Command{
 	Use:   "summarize",
 	Short: "Get a summary of terraform/terragrunt output",
@@ -31,6 +31,22 @@ var summarizeCmd = &cobra.Command{
 		}
 
 		parser.Parser(output)
+	},
+}
+
+// targetCmd will ....
+var targetCmd = &cobra.Command{
+	Use:   "target",
+	Short: "Terraform apply using multiple targets",
+	Long:  "Terraform apply using multiple targets (interactive mode)",
+	Run: func(cmd *cobra.Command, args []string) {
+		output, err := reader.Reader(os.Stdin)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println(output)
+
+		//parser.Target(output)
 	},
 }
 
