@@ -57,7 +57,7 @@ Take a look inside docs [usage](./docs/usage.md)
 
 ## Built-in subcommand
 
-`tfsum usage` is subcommand that prints the contents of [usage.md](docs/usage.md) in pretty terminal markdown render
+`tftools usage` is subcommand that prints the contents of [usage.md](docs/usage.md) in pretty terminal markdown render
 
 ```bash
 tftools usage
