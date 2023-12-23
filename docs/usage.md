@@ -87,9 +87,16 @@ Then, you will see full plan/apply of terraform and the summarized output with t
 
 The example:
 
+> [!NOTE]  
+> The following example is using the full output command 
+
+```shell
+tftools summarize --show-tags --show-unchanged <Documents/plan.json
+```
+
 ![example](../assets/example.png)
 
-> Terragrunt is also allowed
+> Terragrunt is also supported
 
 > [!NOTE]
 > If using a pipeline, probably you will not want to see all the output. Update the [tfsum functiojn](//scripts/tfsum.sh) as you need.
