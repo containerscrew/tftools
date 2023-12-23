@@ -13,11 +13,22 @@ import (
 )
 
 var (
-	version   string
-	goversion = runtime.Version()
-	goos      = runtime.GOOS
-	goarch    = runtime.GOARCH
+	version       string
+	goversion     = runtime.Version()
+	goos          = runtime.GOOS
+	goarch        = runtime.GOARCH
+	showTags      bool
+	showUnchanged bool
+	compact       bool
+	useMarkdown   bool
 )
+
+func init() {
+	summarizeCmd.Flags().BoolVarP(&showTags, "show-tags", "t", false, "Show resources with tag changes")
+	summarizeCmd.Flags().BoolVarP(&showUnchanged, "show-unchanged", "u", false, "Show resources with no changes")
+	summarizeCmd.Flags().BoolVarP(&compact, "compact", "c", false, "Use compact formatting")
+	summarizeCmd.Flags().BoolVarP(&useMarkdown, "markdown", "m", false, "Use markdown formatting")
+}
 
 // summarizeCmd will parse the tf plan output json to scrape created|updated|deleted resources in a clear outout
 var summarizeCmd = &cobra.Command{
@@ -30,7 +41,7 @@ var summarizeCmd = &cobra.Command{
 			panic(err)
 		}
 
-		parser.Parser(output)
+		parser.Parser(output, showTags, showUnchanged, compact, useMarkdown)
 	},
 }
 
