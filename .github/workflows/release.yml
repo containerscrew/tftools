@@ -6,6 +6,7 @@ on:
       - '*'
     branches:
       - 'main'
+      - 'goreleaser/**'
 
 permissions:
   contents: write
@@ -31,6 +32,10 @@ jobs:
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
+
+      # Neccessary por multiarch container compilation
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v3
