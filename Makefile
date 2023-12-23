@@ -19,6 +19,9 @@ pre-commit: ## Run pre-commit
 go-generate: ## Run go generate
 	go generate ./...
 
+gosec: ## Run gosec
+	gosec -exclude=G104,G204 ./...
+
 ##https://github.com/moovweb/gvm
 ##go get golang.org/x/tools/cmd/goimports
 ##go install golang.org/x/tools/cmd/goimports

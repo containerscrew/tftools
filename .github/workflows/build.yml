@@ -26,7 +26,7 @@ jobs:
       - name: security
         uses: securego/gosec@master
         with:
-          args: -exclude=G104 -exclude=G204 ./...
+          args: -exclude=G104,G204 ./...
 
       - name: lint
         uses: golangci/golangci-lint-action@v3
