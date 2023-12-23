@@ -8,7 +8,7 @@ doctoc: ## Create table of contents with doctoc
 	doctoc .
 
 goreleaser: ## Generate go binaries using goreleaser (brew install goreleaser)
-	goreleaser release --snapshot --clean
+	goreleaser release --snapshot --clean -p 2
 
 golangci-lint: ## Lint Golang code (brew install golangci-lint)
 	golangci-lint run --fix

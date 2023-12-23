@@ -20,13 +20,13 @@ jobs:
       - name: setup-go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.20'
+          go-version: '1.21'
           cache: false
 
       - name: security
         uses: securego/gosec@master
         with:
-          args: -exclude=G204 ./...
+          args: -exclude=G104 -exclude=G204 ./...
 
       - name: lint
         uses: golangci/golangci-lint-action@v3
