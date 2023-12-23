@@ -99,7 +99,7 @@ tftools summarize --show-tags --show-unchanged <Documents/plan.json
 > Terragrunt is also supported
 
 > [!NOTE]
-> If using a pipeline, probably you will not want to see all the output. Update the [tfsum functiojn](//scripts/tfsum.sh) as you need.
+> If using a pipeline, probably you will not want to see all the output. Update the [tfsum function](//scripts/tfsum.sh) as you need.
 
 Take a look to the comment:
 
