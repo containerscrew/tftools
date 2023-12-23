@@ -51,7 +51,11 @@ var usageCmd = &cobra.Command{
 	Short: "print usage",
 	Long:  "print usage in a pretty markdown render using terminal. This require internet connection since it fetch usage.md from github url",
 	Run: func(cmd *cobra.Command, args []string) {
-		markdownrender.RenderUsage()
+		if len(version) == 0 {
+			version = "main"
+		}
+
+		markdownrender.RenderUsage(version)
 	},
 }
 

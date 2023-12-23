@@ -16,14 +16,12 @@
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [Badges](#badges)
-- [TF summarize](#tf-summarize)
-  - [Example](#example)
-  - [Steps](#steps)
+- [Tftools summarize](#tftools-summarize)
 - [Installation](#installation)
   - [Quick installation (latest version)](#quick-installation-latest-version)
 - [Usage](#usage)
   - [Built-in subcommand](#built-in-subcommand)
-- [Credits](#credits)
+- [Example](#example)
 - [TO DO](#to-do)
 - [Contribution](#contribution)
 - [LICENSE](#license)
@@ -39,33 +37,9 @@
 [![Release](https://img.shields.io/github/release/containerscrew/tftools)](https://github.com/containerscrew/tftools/releases/latest)
 [![GitHub Releases Stats](https://img.shields.io/github/downloads/containerscrew/tftools/total.svg?logo=github)](https://somsubhra.github.io/github-release-stats/?username=containerscrew&repository=tftools)
 
-# TF summarize
+# Tftools summarize
 
 **The concern is:** I have a lot of changes in terraform and I need a clear way of the concepts that are going to be **deleted|changed|created** only with the resource address. It can be messy to have a super tf plan output when there are **many changes**.
-
-
-## Example
-
-Imagine you are going to:
-
-- Create a new s3 test bucket
-- Change your ALB ingress controller policy and vpc-cni addon
-- Delete grafana backup tool helm chart
-
-## Steps
-
-1. Makes the appropriate changes from code.
-
-2. Execute `tfsum terraform`, then you will see the original output of a plan/apply and a summary only printing the resource addr and the action.
-
-> tfsum is a custom function. See [usage](#usage) or [tfsum.sh](scripts/tfsum.sh)
-
-![tfsum](assets/example.png)
-
-*This summarized output can be useful, for example, for:*
-
-* You are migrating a terraform module and there are many changes that may be important in terms of destroying/creating resources (e.g., if you are migrating an EKS module from v17.X to v19.X).
-* You use GitOps and deploy terraform from pipeline. The pipeline that makes the `terraform plan` can always show a summary of what is going to change (instead of having a super output of the original terraform plan).
 
 # Installation
 
@@ -75,7 +49,7 @@ Imagine you are going to:
 curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/containerscrew/tftools/main/scripts/install.sh | bash
 ```
 
-Take a look inside docs [install](./docs/install.md)
+Take a look inside [install](./docs/install.md) documentation for other installation methods.
 
 # Usage
 
@@ -89,22 +63,24 @@ Take a look inside docs [usage](./docs/usage.md)
 tftools usage
 ```
 
-> Requires internet connectivity, as it fetches the [usage.md](https://raw.githubusercontent.com/containerscrew/tftools/main/docs/usage.md) file.
+> Requires internet connectivity, as it fetches the [usage.md](docs/usage.md) file.
 
-# Credits
-- [Cobra to build beautiful CLI](https://cobra.dev/)
-- [Terraform json structs for data parsing](https://github.com/hashicorp/terraform-json)
-- [Distroless for container build](https://github.com/GoogleContainerTools/distroless)
-- [Glamour markdown render](https://github.com/charmbracelet/glamour)
-- [Official issue to solve this concern](https://github.com/hashicorp/terraform/issues/10507)
-- [Git leaks](https://github.com/gitleaks/gitleaks-action)
-- [To my teacher of Golang @gilmiriam](https://github.com/gilmiriam)
+# Example
+
+![example](assets/example.png)
+
+*This summarized output can be useful, for example, for:*
+
+* You are migrating a terraform module and there are many changes that may be important in terms of destroying/creating resources (e.g., if you are migrating an EKS module from v17.X to v19.X).
+* You use GitOps and deploy terraform from pipeline. The pipeline that makes the `terraform plan` can always show a summary of what is going to change (instead of having a super output of the original terraform plan).
 
 # TO DO
 
 * Improve error handling
 * Add tests, although I have no experience
 * Code refactor is certainly needed!
+* Create new subcommand for an interative terraform state mv target migration (when you need to move a lot of resources)
+* Other subcommand when you need to apply only certain targets (terraform apply -target=x -target=x ...)
 
 # Contribution
 

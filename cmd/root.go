@@ -17,6 +17,7 @@ import (
 func printBanner() {
 	templ := `{{ .AnsiColor.BrightMagenta  }} {{ .Title "tftools" "" 2 }}{{ .AnsiColor.Default }}
    Author: github.com/containerscrew
+   License: Apache License 2.0
    Now: {{ .Now "Monday, 2 Jan 2006" }}`
 	banner.InitString(colorable.NewColorableStdout(), true, true, templ)
 	fmt.Printf("\n\n")

@@ -202,9 +202,9 @@ func checkOnlyTagChanges(resourceChange *tfjson.ResourceChange) (bool, error) {
 }
 
 func equal(a, b interface{}) bool {
-	aJson, _ := json.Marshal(a)
-	bJson, _ := json.Marshal(b)
-	return string(aJson) == string(bJson)
+	aJSON, _ := json.Marshal(a)
+	bJSON, _ := json.Marshal(b)
+	return string(aJSON) == string(bJSON)
 }
 
 func contains(slice []tfjson.Action, val tfjson.Action) bool {

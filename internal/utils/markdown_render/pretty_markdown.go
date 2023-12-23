@@ -9,11 +9,9 @@ import (
 	"github.com/charmbracelet/glamour"
 )
 
-const (
-	usageURL = "https://raw.githubusercontent.com/containerscrew/tftools/main/docs/usage.md"
-)
+func ReadUsageFile(version string) string {
+	usageURL := fmt.Sprintf("https://raw.githubusercontent.com/containerscrew/tftools/%s/docs/usage.md", version)
 
-func ReadUsageFile() string {
 	resp, err := http.Get(usageURL)
 
 	if err != nil {
@@ -34,8 +32,8 @@ func ReadUsageFile() string {
 	return string(data)
 }
 
-func RenderUsage() {
-	data := ReadUsageFile()
+func RenderUsage(version string) {
+	data := ReadUsageFile(version)
 
 	out, err := glamour.Render(data, "dark")
 	if err != nil {
