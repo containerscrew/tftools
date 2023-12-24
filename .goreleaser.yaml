@@ -79,17 +79,19 @@ brews:
 
 # Containers
 dockers:
-- dockerfile: Containerfile
-  skip_push: true
 - image_templates:
   - 'containerscrew/tftools:{{ .Tag }}-amd64'
   use: buildx
+  skip_push: true
+  dockerfile: Containerfile
   build_flag_templates:
   - "--pull"
   - "--platform=linux/amd64"
 - image_templates:
   - 'containerscrew/tftools:{{ .Tag }}-arm64'
   use: buildx
+  dockerfile: Containerfile
+  skip_push: true
   build_flag_templates:
   - "--pull"
   - "--platform=linux/arm64"
