@@ -37,12 +37,10 @@ function tfsum() {
   then
     echo "You should type 'tfsum terraform|terragrunt'"
   else
-    echo -e "Starting tf summary..."
-    # Don't print output of terraform plan
-    # If you don't want full plan output: $1 plan -out plan.tfplan 1> /dev/null
-    $1 plan -out plan.tfplan
-    echo -e "\n"
-    $1 show -json plan.tfplan | tftools summarize
+    echo -en "Starting tf summary... Please wait"
+    # If you want to print full plan output: $1 plan -out plan.tfplan
+    $1 plan -out plan.tfplan 1> /dev/null
+    $1 show -json plan.tfplan | tftools summarize --show-tags
     # Delete plan out file to avoid git tracking (although is included in .gitignore)
     if [ -f "plan.tfplan" ]; then rm plan.tfplan; fi
   fi
@@ -56,12 +54,10 @@ function tfsum
     if test -z $argv[1]
         echo "You should type 'tfsum terraform|terragrunt'"
     else
-        echo -e "Starting tf summary..."
-        # Don't print output of terraform plan
-        # If you don't want full plan output: $argv[1] plan -out plan.tfplan > /dev/null
-        $argv[1] plan -out plan.tfplan
-        echo -e "\n"
-        $argv[1] show -json plan.tfplan | tftools summarize
+        echo -en "Starting tf summary... Please wait"
+        # If you want to print full plan output: $argv[1] plan -out plan.tfplan
+        $argv[1] plan -out plan.tfplan 1> /dev/null
+        $argv[1] show -json plan.tfplan | tftools summarize --show-tags
         # Delete plan out file to avoid git tracking (although is included in .gitignore)
         if test -f "plan.tfplan"; rm plan.tfplan; end
     end
@@ -83,12 +79,12 @@ cd my-terraform-project/
 tfsum terraform
 ```
 
-Then, you will see full plan/apply of terraform and the summarized output with the corresponding targets.
+Then, you will see the summarized output with the corresponding targets.
 
 The example:
 
-> [!NOTE]  
-> The following example is using the full output command 
+> [!NOTE]
+> The following example is using the full output command
 
 ```shell
 tftools summarize --show-tags --show-unchanged <Documents/plan.json
@@ -98,14 +94,6 @@ tftools summarize --show-tags --show-unchanged <Documents/plan.json
 
 > Terragrunt is also supported
 
-> [!NOTE]
-> If using a pipeline, probably you will not want to see all the output. Update the [tfsum function](//scripts/tfsum.sh) as you need.
-
-Take a look to the comment:
-
-```bash
-....
-# If you don't want full plan output: $1 plan -out plan.tfplan 1> /dev/null
-$1 plan -out plan.tfplan
-....
+```shell
+$ tfsum terragrunt
 ```
