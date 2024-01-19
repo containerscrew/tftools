@@ -22,6 +22,9 @@ go-generate: ## Run go generate
 gosec: ## Run gosec
 	gosec -exclude=G104,G204 ./...
 
+update-dependencies: ## Update dependencies
+	go get -u ./...
+
 ##https://github.com/moovweb/gvm
 ##go get golang.org/x/tools/cmd/goimports
 ##go install golang.org/x/tools/cmd/goimports
