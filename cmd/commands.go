@@ -34,7 +34,7 @@ func init() {
 	summarizeCmd.Flags().BoolVarP(&metrics, "metrics", "s", false, "Output metrics")
 }
 
-// summarizeCmd will parse the tf plan output useJson to scrape created|updated|deleted resources in a clear outout
+// summarizeCmd will parse the tf plan output json to scrape created|updated|deleted resources in a clear outout
 var summarizeCmd = &cobra.Command{
 	Use:   "summarize",
 	Short: "Get a summary of terraform/terragrunt output",

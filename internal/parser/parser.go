@@ -144,16 +144,12 @@ func PrintPlanSummary(showTags, showUnchanged, compact, useMarkdown bool, useJso
 	if !useJson {
 		if showUnchanged {
 			PrintResources("🔵 Unchanged:", resourcesList[NOOP], "•", color.New(color.FgBlue), compact, useMarkdown)
-			fmt.Println(",")
 		}
 		if showTags {
 			PrintResources("🟣 Tag/Untag:", resourcesList[TAG], "#", color.New(color.FgMagenta), compact, useMarkdown)
-			fmt.Println(",")
 		}
 		PrintResources("🟢 Create:", resourcesList[CREATE], "+", color.New(color.FgGreen), compact, useMarkdown)
-		fmt.Println(",")
 		PrintResources("🟡 Update:", resourcesList[UPDATE], "~", color.New(color.FgYellow), compact, useMarkdown)
-		fmt.Println(",")
 		PrintResources("🔴 Destroy:", resourcesList[DELETE], "-", color.New(color.FgRed), compact, useMarkdown)
 	} else {
 		PrintResourcesJson(showTags, showUnchanged, metrics)
