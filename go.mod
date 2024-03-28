@@ -1,6 +1,6 @@
 module github.com/containerscrew/tftools
 
-go 1.21.5
+go 1.21
 
 require (
 	github.com/charmbracelet/glamour v0.6.0

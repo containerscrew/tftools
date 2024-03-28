@@ -20,7 +20,7 @@ var (
 	resourcesList = make(map[string][]string)
 )
 
-func Parser(output []byte, showTags, showUnchanged, compact, useMarkdown bool) {
+func Parser(output []byte, showTags, showUnchanged, compact, useMarkdown bool, useJson bool, metrics bool) {
 	var data tfjson.Plan
 	if err := json.Unmarshal(output, &data); err != nil {
 		fmt.Printf("Error unmarshalling plan: %v\n", err)
@@ -31,7 +31,7 @@ func Parser(output []byte, showTags, showUnchanged, compact, useMarkdown bool) {
 		processResourceChange(resourceChange, showTags)
 	}
 
-	PrintPlanSummary(showTags, showUnchanged, compact, useMarkdown)
+	PrintPlanSummary(showTags, showUnchanged, compact, useMarkdown, useJson, metrics)
 }
 
 func processResourceChange(resourceChange *tfjson.ResourceChange, showTags bool) {
@@ -140,16 +140,66 @@ func PrintResources(message string, resources []string, bulletSymbol string, col
 	}
 }
 
-func PrintPlanSummary(showTags, showUnchanged, compact, useMarkdown bool) {
-	if showUnchanged {
-		PrintResources("🔵 Unchanged:", resourcesList[NOOP], "•", color.New(color.FgBlue), compact, useMarkdown)
+func PrintPlanSummary(showTags, showUnchanged, compact, useMarkdown bool, useJson bool, metrics bool) {
+	if !useJson {
+		if showUnchanged {
+			PrintResources("🔵 Unchanged:", resourcesList[NOOP], "•", color.New(color.FgBlue), compact, useMarkdown)
+		}
+		if showTags {
+			PrintResources("🟣 Tag/Untag:", resourcesList[TAG], "#", color.New(color.FgMagenta), compact, useMarkdown)
+		}
+		PrintResources("🟢 Create:", resourcesList[CREATE], "+", color.New(color.FgGreen), compact, useMarkdown)
+		PrintResources("🟡 Update:", resourcesList[UPDATE], "~", color.New(color.FgYellow), compact, useMarkdown)
+		PrintResources("🔴 Destroy:", resourcesList[DELETE], "-", color.New(color.FgRed), compact, useMarkdown)
+	} else {
+		PrintResourcesJson(showTags, showUnchanged, metrics)
 	}
-	if showTags {
-		PrintResources("🟣 Tag/Untag:", resourcesList[TAG], "#", color.New(color.FgMagenta), compact, useMarkdown)
+}
+
+func PrintResourcesJson(showTags bool, showUnchanged bool, metrics bool) {
+	if metrics {
+		var metricsData = make(map[string]int)
+
+		if showUnchanged {
+			metricsData["unchanged"] = len(resourcesList[NOOP])
+		}
+
+		if showTags {
+			metricsData["tag"] = len(resourcesList[TAG])
+		}
+
+		metricsData["create"] = len(resourcesList[CREATE])
+		metricsData["update"] = len(resourcesList[UPDATE])
+		metricsData["delete"] = len(resourcesList[DELETE])
+
+		result, _ := json.Marshal(metricsData)
+		fmt.Println(string(result))
+	} else {
+		var data = make(map[string][]string)
+
+		if showUnchanged && len(resourcesList[NOOP]) > 0 {
+			data["unchanged"] = resourcesList[NOOP]
+		}
+
+		if showTags && len(resourcesList[TAG]) > 0 {
+			data["tag"] = resourcesList[TAG]
+		}
+
+		if len(resourcesList[CREATE]) > 0 {
+			data["create"] = resourcesList[CREATE]
+		}
+
+		if len(resourcesList[UPDATE]) > 0 {
+			data["update"] = resourcesList[UPDATE]
+		}
+
+		if len(resourcesList[DELETE]) > 0 {
+			data["delete"] = resourcesList[DELETE]
+		}
+
+		result, _ := json.Marshal(data)
+		fmt.Println(string(result))
 	}
-	PrintResources("🟢 Create:", resourcesList[CREATE], "+", color.New(color.FgGreen), compact, useMarkdown)
-	PrintResources("🟡 Update:", resourcesList[UPDATE], "~", color.New(color.FgYellow), compact, useMarkdown)
-	PrintResources("🔴 Destroy:", resourcesList[DELETE], "-", color.New(color.FgRed), compact, useMarkdown)
 }
 
 func checkOnlyTagChanges(resourceChange *tfjson.ResourceChange) (bool, error) {
