@@ -1,50 +1,17 @@
-#! /usr/bin/bash
+#!/bin/sh
 
-PROJECT="tftools"
+set -e
 
-set -eu
-declare -a commands=("curl" "jq" "tar")
-
-trap ctrl_c INT
-
-function ctrl_c(){
-	clean
-	echo -e "\nBye!"
-	exit 0
-}
-
-command_exists() {
-  for command in "${commands[@]}"
-  do
-    if ! command -v "$command" &> /dev/null
-    then
-        echo "ERROR: $command could not be found. Install it!"
-        exit 1
-    fi
-  done
-}
-
-clean(){
-  echo -e "Cleaning $tmpdir"
-  rm -r "$tmpdir"
-}
-
-# Pre flight checks
-command_exists
+# Global vars
+INSTALLATION_PATH="/usr/local/bin/"
 
 happyexit(){
   echo ""
-  echo "${PROJECT} successfully installed! 🎉"
+  echo "tftools successfully installed! 🎉"
   echo ""
-  echo "Now run:"
-  echo ""
-  echo "  ${PROJECT} usage"
+  echo "Now run: $ tftools usage"
   echo ""
   exit 0
-}
-
-validate_checksum(){
-  echo "Not implemented yet"
 }
 
 # Check OS
@@ -61,7 +28,7 @@ case $OS in
         cli_arch=$arch
         ;;
       *)
-        echo "There is no ${PROJECT} $OS support for $arch"
+        echo "There is no tftools $OS support for $arch"
         exit 1
         ;;
     esac
@@ -81,39 +48,68 @@ case $OS in
         cli_arch=$arch
         ;;
       *)
-        echo "There is no ${PROJECT} $OS support for $arch"
+        echo "There is no tftools $OS support for $arch"
         exit 1
         ;;
     esac
     ;;
   *)
-    echo "There is no ${PROJECT} $OS support for $arch"
+    echo "There is no tftools $OS support for $arch"
     exit 1
     ;;
 esac
 OS=$(echo "$OS" | tr '[:upper:]' '[:lower:]')
 
 download_release() {
-  TFTOOLS_LATEST_VERSION=$(curl -s https://api.github.com/repos/containerscrew/$PROJECT/releases/latest | jq -r ".name")
-  INSTALLATION_PATH="/usr/local/bin/"
-  tmpdir=$(mktemp -d)
+  LATEST_VERSION=$(curl -s https://api.github.com/repos/containerscrew/tftools/releases/latest | jq -r ".name")
+  if [ -z "$1" ]; then VERSION=$LATEST_VERSION; else VERSION=$1; fi
 
-  cd $tmpdir
-  echo -e "Downloading... ${TFTOOLS_LATEST_VERSION}/${PROJECT}-${OS}-${cli_arch}.tar.gz \n"
-  curl -L --fail --remote-name-all https://github.com/containerscrew/${PROJECT}/releases/download/"${TFTOOLS_LATEST_VERSION}"/${PROJECT}-"${OS}"-"${cli_arch}".tar.gz
-  tar -xzf ${PROJECT}-"${OS}"-"${cli_arch}".tar.gz ${PROJECT}
+  printf "\033[0;32m[info] - Downloading version: ${VERSION}/tftools-${OS}-${cli_arch}.tar.gz \033[0m\n"
+  curl -L --fail --remote-name-all https://github.com/containerscrew/tftools/releases/download/"${VERSION}"/tftools-"${OS}"-"${cli_arch}".tar.gz -o /tmp/tftools.tar.gz
+  tar -xzf /tmp/tftools.tar.gz -C /tmp/
 }
 
-# Start install
-download_release
-
-if [ "$EUID" -ne 0 ]
-  then command_exists sudo
-    sudo mv ${PROJECT} $INSTALLATION_PATH
+install_binary(){
+  if [ "$(id -u)" = 0 ]; then
+      cp /tmp/tftools $INSTALLATION_PATH
   else
-    mv ${PROJECT} $INSTALLATION_PATH
-  chmod +x $INSTALLATION_PATH/${PROJECT}
-fi
+      sudo cp /tmp/tftools $INSTALLATION_PATH
+  fi
+  sudo chmod +x $INSTALLATION_PATH/tftools
+  rm -rf /tmp/tftools*
+  happyexit
+}
 
-clean
-happyexit
+# Function to display help text
+usage() {
+    echo "Usage: $0 [-v] [-h]"
+    echo "Options:"
+    echo "  -v           Select which version do you want to install."
+    echo "  -h           Display the help message"
+}
+
+# Parse options using getopts
+while getopts "v:h" option; do
+    case "${option}" in
+        v)  # Install specific version
+            version=${OPTARG}
+            download_release "$version"
+            install_binary
+            ;;
+        h)  # Help option
+            usage
+            exit 0
+            ;;
+        \?) # Invalid option
+            echo "Invalid option: -${OPTARG}"
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+# If no flags, by default install latest version
+if [ $# -eq 0 ]; then
+    download_release
+    install_binary
+fi

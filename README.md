@@ -18,7 +18,8 @@
 - [Badges](#badges)
 - [Tftools summarize](#tftools-summarize)
 - [Installation](#installation)
-  - [Quick installation (latest version)](#quick-installation-latest-version)
+  - [Install latest version](#install-latest-version)
+  - [Install specific release](#install-specific-release)
 - [Usage](#usage)
   - [Built-in subcommand](#built-in-subcommand)
 - [Example](#example)
@@ -43,11 +44,20 @@
 
 # Installation
 
-## Quick installation (latest version)
+## Install latest version
 
-```bash
-curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/containerscrew/tftools/main/scripts/install.sh | bash
+```shell
+curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/containerscrew/tftools/main/scripts/install.sh | sh
 ```
+
+## Install specific release
+
+```shell
+curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/containerscrew/tftools/main/scripts/install.sh | sh -v "v0.8.0"
+```
+
+> [!NOTE]
+> If you don't specify `-v` flag, by default will install always latest version. `-v` flag is not mandatory, just to avoid breaking changes in this installation script.
 
 Take a look inside [install](./docs/install.md) documentation for other installation methods.
 

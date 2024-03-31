@@ -7,6 +7,10 @@
   - [Function for zsh or bash shell](#function-for-zsh-or-bash-shell)
 - [Function for fish shell](#function-for-fish-shell)
 - [Example](#example)
+- [JSON output support](#json-output-support)
+  - [JSON output with arns](#json-output-with-arns)
+  - [JSON output only metrics](#json-output-only-metrics)
+  - [JSON output pretty](#json-output-pretty)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -97,3 +101,24 @@ tftools summarize --show-tags --show-unchanged <Documents/plan.json
 ```shell
 $ tfsum terragrunt
 ```
+
+# JSON output support
+
+## JSON output with arns
+```shell
+tftools summarize --json --pretty-json <demo.json
+```
+
+## JSON output only metrics
+
+```shell
+tftools summarize --json --metrics <demo.json
+```
+
+## JSON output pretty
+
+```shell
+tftools summarize --json --metrics --pretty-json <demo.json
+```
+
+![example-json-outputs](../assets/example-json-output.png)

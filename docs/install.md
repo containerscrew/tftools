@@ -5,10 +5,13 @@
 - [Installation](#installation)
   - [Using go](#using-go)
   - [Using brew](#using-brew)
-  - [Quick installation (latest version)](#quick-installation-latest-version)
+  - [Install latest version](#install-latest-version)
+  - [Install specific release](#install-specific-release)
     - [Supported OS](#supported-os)
   - [Check version](#check-version)
-- [Updating](#updating)
+- [Updating latest version](#updating-latest-version)
+  - [With brew](#with-brew)
+  - [Using curl](#using-curl)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -27,10 +30,16 @@ brew tap containerscrew/tftools https://github.com/containerscrew/tftools
 brew install tftools
 ```
 
-## Quick installation (latest version)
+## Install latest version
 
-```bash
-curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/containerscrew/tftools/main/scripts/install.sh | bash
+```shell
+curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/containerscrew/tftools/main/scripts/install.sh | sh
+```
+
+## Install specific release
+
+```shell
+curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/containerscrew/tftools/main/scripts/install.sh | sh -v "v0.8.0"
 ```
 
 You will find apk, rpm and deb packages in [releases](https://github.com/containerscrew/tftools/releases)
@@ -59,9 +68,17 @@ rm dpkg -i tftools-linux-${TFTOOLS_CLI_ARCH}.deb
 tftools version
 ```
 
-# Updating
+# Updating latest version
 
-```bash
+## With brew
+
+```shell
 brew update
 brew upgrade containerscrew/tftools/tftools
+```
+
+## Using curl
+
+```shell
+curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/containerscrew/tftools/main/scripts/install.sh | sh
 ```
