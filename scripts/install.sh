@@ -77,7 +77,7 @@ install_binary(){
       sudo cp /tmp/tftools $INSTALLATION_PATH
       sudo chmod +x $INSTALLATION_PATH/tftools
   fi
-  rm -rf /tmp/tftools*
+  rm -rf /tmp/tftools* README.md
   happyexit
 }
 

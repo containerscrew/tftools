@@ -39,7 +39,7 @@ curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/containe
 ## Install specific release
 
 ```shell
-curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/containerscrew/tftools/main/scripts/install.sh | sh -v "v0.8.0"
+curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/containerscrew/tftools/main/scripts/install.sh | sh -s -- -v "v0.8.0"
 ```
 
 You will find apk, rpm and deb packages in [releases](https://github.com/containerscrew/tftools/releases)
