@@ -59,7 +59,13 @@ curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/containe
 > [!NOTE]
 > If you don't specify `-v` flag, by default will install always latest version.
 
-Take a look inside [install](./docs/install.md) documentation for other installation methods.
+## Container image
+
+[In this other repo](https://github.com/containerscrew/infratools) I have a container image where you can find this tool `tftools` installed.
+
+https://hub.docker.com/r/containerscrew/infratools/
+
+> Take a look inside [install](./docs/install.md) documentation for other installation methods.
 
 # Usage
 
