@@ -72,10 +72,11 @@ download_release() {
 install_binary(){
   if [ "$(id -u)" = 0 ]; then
       cp /tmp/tftools $INSTALLATION_PATH
+      chmod +x $INSTALLATION_PATH/tftools
   else
       sudo cp /tmp/tftools $INSTALLATION_PATH
+      sudo chmod +x $INSTALLATION_PATH/tftools
   fi
-  sudo chmod +x $INSTALLATION_PATH/tftools
   rm -rf /tmp/tftools*
   happyexit
 }
