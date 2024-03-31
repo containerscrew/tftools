@@ -20,6 +20,7 @@
 - [Installation](#installation)
   - [Install latest version](#install-latest-version)
   - [Install specific release](#install-specific-release)
+  - [Container image](#container-image)
 - [Usage](#usage)
   - [Built-in subcommand](#built-in-subcommand)
 - [Example](#example)

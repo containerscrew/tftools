@@ -4,8 +4,10 @@
 
 - [Usage](#usage)
   - [Summarize](#summarize)
-  - [Function for zsh or bash shell](#function-for-zsh-or-bash-shell)
-- [Function for fish shell](#function-for-fish-shell)
+  - [Function for zsh](#function-for-zsh)
+  - [Function for fish](#function-for-fish)
+  - [Function for bash](#function-for-bash)
+  - [Load new functions](#load-new-functions)
 - [Example](#example)
 - [JSON output support](#json-output-support)
   - [JSON output with arns](#json-output-with-arns)
@@ -18,22 +20,22 @@
 
 ## Summarize
 
-```bash
+```shell
 terraform plan -out plan.tfplan
-terraform show -json plan.tfplan | tftools summarize
+terraform show -json plan.tfplan | tftools summarize --show-tags
 ```
 
 Or if you have the file in json:
 
-```bash
+```shell
 terraform plan -out plan.tfplan
 terraform show -json plan.tfplan > plan.json
 cat plan.json | tftools summarize
-tftools summarize ;
 ```
 
-## Function for zsh or bash shell
-Copy [this function](../scripts/tfsum.sh) in your `~/.zshrc` or `~/.bashrc` file.
+## Function for zsh
+
+Edit your `~/.zshrc`
 
 ```bash
 function tfsum() {
@@ -51,7 +53,9 @@ function tfsum() {
 }
 ```
 
-# Function for fish shell
+## Function for fish
+
+Edit your `~/.config/fish/config.fish` or create a new file inside `~/.config/fish/functions/tfsum.fish`
 
 ```shell
 function tfsum
@@ -68,7 +72,41 @@ function tfsum
 end
 ```
 
-Load new functions:
+## Function for bash
+
+Edit your `~/.bashrc`
+
+```shell
+tfsum() {
+  if [ -z "$1" ]; then
+    echo "You should type 'tfsum terraform|terragrunt'"
+    exit 1
+  fi
+
+  echo -en "Starting tf summary... Please wait\n"
+
+  if [ -n "$2" ] && [ "$2" == "-v" ]; then
+    "$1" plan -out plan.tfplan
+  else
+    "$1" plan -out plan.tfplan 1> /dev/null
+  fi
+
+  "$1" show -json plan.tfplan | tftools summarize --show-tags
+  if [ -f "plan.tfplan" ]; then rm plan.tfplan; fi
+}
+```
+
+> [!NOTE]
+> Note that the bash function has the possibility of activating the output or not using the `-v` flag
+
+```shell
+tfsum terraform -v # show full output
+```
+
+> [!WARNING]
+> Adapt the rest of zsh or fish functions according to your needs.
+
+## Load new functions
 
 ```shell
 source ~/.zshrc
