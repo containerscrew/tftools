@@ -57,7 +57,7 @@ curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/containe
 ```
 
 > [!NOTE]
-> If you don't specify `-v` flag, by default will install always latest version. `-v` flag is not mandatory, just to avoid breaking changes in this installation script.
+> If you don't specify `-v` flag, by default will install always latest version.
 
 Take a look inside [install](./docs/install.md) documentation for other installation methods.
 
