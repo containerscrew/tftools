@@ -20,7 +20,7 @@ var (
 	resourcesList = make(map[string][]string)
 )
 
-func Parser(output []byte, showTags, showUnchanged, compact, useMarkdown bool, useJson bool, metrics bool) {
+func Parser(output []byte, showTags, showUnchanged, compact, useMarkdown bool, useJson bool, metrics bool, prettyJSON bool) {
 	var data tfjson.Plan
 	if err := json.Unmarshal(output, &data); err != nil {
 		fmt.Printf("Error unmarshalling plan: %v\n", err)
@@ -31,7 +31,7 @@ func Parser(output []byte, showTags, showUnchanged, compact, useMarkdown bool, u
 		processResourceChange(resourceChange, showTags)
 	}
 
-	PrintPlanSummary(showTags, showUnchanged, compact, useMarkdown, useJson, metrics)
+	PrintPlanSummary(showTags, showUnchanged, compact, useMarkdown, useJson, metrics, prettyJSON)
 }
 
 func processResourceChange(resourceChange *tfjson.ResourceChange, showTags bool) {
@@ -140,7 +140,7 @@ func PrintResources(message string, resources []string, bulletSymbol string, col
 	}
 }
 
-func PrintPlanSummary(showTags, showUnchanged, compact, useMarkdown bool, useJson bool, metrics bool) {
+func PrintPlanSummary(showTags, showUnchanged, compact, useMarkdown bool, useJson bool, metrics bool, prettyJSON bool) {
 	if !useJson {
 		if showUnchanged {
 			PrintResources("🔵 Unchanged:", resourcesList[NOOP], "•", color.New(color.FgBlue), compact, useMarkdown)
@@ -152,11 +152,11 @@ func PrintPlanSummary(showTags, showUnchanged, compact, useMarkdown bool, useJso
 		PrintResources("🟡 Update:", resourcesList[UPDATE], "~", color.New(color.FgYellow), compact, useMarkdown)
 		PrintResources("🔴 Destroy:", resourcesList[DELETE], "-", color.New(color.FgRed), compact, useMarkdown)
 	} else {
-		PrintResourcesJson(showTags, showUnchanged, metrics)
+		PrintResourcesJson(showTags, showUnchanged, metrics, prettyJSON)
 	}
 }
 
-func PrintResourcesJson(showTags bool, showUnchanged bool, metrics bool) {
+func PrintResourcesJson(showTags bool, showUnchanged bool, metrics bool, prettyJSON bool) {
 	if metrics {
 		var metricsData = make(map[string]int)
 
@@ -172,8 +172,14 @@ func PrintResourcesJson(showTags bool, showUnchanged bool, metrics bool) {
 		metricsData["update"] = len(resourcesList[UPDATE])
 		metricsData["delete"] = len(resourcesList[DELETE])
 
-		result, _ := json.Marshal(metricsData)
-		fmt.Println(string(result))
+		if prettyJSON {
+			result, _ := json.MarshalIndent(metricsData, "", "  ")
+			fmt.Println(string(result))
+		} else {
+			result, _ := json.Marshal(metricsData)
+			fmt.Println(string(result))
+		}
+
 	} else {
 		var data = make(map[string][]string)
 
@@ -197,8 +203,13 @@ func PrintResourcesJson(showTags bool, showUnchanged bool, metrics bool) {
 			data["delete"] = resourcesList[DELETE]
 		}
 
-		result, _ := json.Marshal(data)
-		fmt.Println(string(result))
+		if prettyJSON {
+			result, _ := json.MarshalIndent(data, "", "  ") //json.Marshal(data)
+			fmt.Println(string(result))
+		} else {
+			result, _ := json.Marshal(data)
+			fmt.Println(string(result))
+		}
 	}
 }
 
