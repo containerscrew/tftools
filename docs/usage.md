@@ -8,6 +8,7 @@
   - [Function for fish](#function-for-fish)
   - [Function for bash](#function-for-bash)
   - [Load new functions](#load-new-functions)
+  - [Using tfsum as a custom binary](#using-tfsum-as-a-custom-binary)
 - [Example](#example)
 - [JSON output support](#json-output-support)
   - [JSON output with arns](#json-output-with-arns)
@@ -113,6 +114,18 @@ source ~/.zshrc
 source ~/.bashrc
 source ~/.config/fish/config.fish
 ```
+
+## Using tfsum as a custom binary
+
+Copy [tfsum](../scripts/tfsum.sh) to `/usr/local/bin/tfsum`
+
+```shell
+sudo cp scripts/tfsum.sh /usr/local/bin/tfsum
+```
+
+> `/usr/local/bin` or other directory included in your path
+
+Inside the container image of [infratools](https://github.com/containerscrew/infratools), this custom binary is already contemplated.
 
 # Example
 

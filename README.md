@@ -93,6 +93,7 @@ tftools usage
 
 # TO DO
 
+* When there are updates add flag --show-updates-output
 * Improve error handling
 * Add tests, although I have no experience
 * Code refactor is certainly needed!
