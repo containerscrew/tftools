@@ -1,4 +1,4 @@
-name: Build 🛠️
+name: GoSec 🛠️
 on:
   pull_request:
   push:
