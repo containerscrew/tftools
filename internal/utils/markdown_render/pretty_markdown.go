@@ -10,6 +10,8 @@ import (
 )
 
 func ReadUsageFile(version string) string {
+	// Always fetch usage.md of the version you are using, not from latest main branch
+	// Skip gosec G107, this ULR can't be a constant
 	usageURL := fmt.Sprintf("https://raw.githubusercontent.com/containerscrew/tftools/%s/docs/usage.md", version)
 
 	resp, err := http.Get(usageURL)

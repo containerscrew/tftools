@@ -3,9 +3,7 @@ name: Release 📦
 on:
   push:
     tags:
-      - '*'
-    branches:
-      - 'main'
+      - 'v*'
 
 permissions:
   contents: write
@@ -16,14 +14,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: setup-go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
-          go-version: '1.21.5'
+          go-version: '1.22'
 
       - name: Import GPG key
         id: import_gpg
