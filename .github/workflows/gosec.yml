@@ -1,11 +1,18 @@
-name: Build
+name: Build 🛠️
 on:
   pull_request:
   push:
+    #    tags:
+    #      - '*'
+    branches:
+      - '*'
+
+permissions:
+  contents: write
 
 jobs:
   build:
-    name: Build 🚀
+    name: Go build 🚀
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -17,5 +24,7 @@ jobs:
           go-version: '1.22'
           cache: false
 
-      - name: build
-        run: go build
+      - name: security
+        uses: securego/gosec@master
+        with:
+          args: -exclude=G104,G204,G107 ./...

@@ -35,6 +35,9 @@
 ![Release Status](https://github.com/containerscrew/tftools/actions/workflows/release.yml/badge.svg)
 ![Build Status](https://github.com/containerscrew/tftools/actions/workflows/build.yml/badge.svg)
 ![Git Leaks Status](https://github.com/containerscrew/tftools/actions/workflows/gitleaks.yml/badge.svg)
+![Lint Status](https://github.com/containerscrew/tftools/actions/workflows/lint.yml/badge.svg)
+![Gosec Status](https://github.com/containerscrew/tftools/actions/workflows/gosec.yml/badge.svg)
+![Test Status](https://github.com/containerscrew/tftools/actions/workflows/test.yml/badge.svg)
 [![License](https://img.shields.io/github/license/containerscrew/tftools)](/LICENSE)
 [![Release](https://img.shields.io/github/release/containerscrew/tftools)](https://github.com/containerscrew/tftools/releases/latest)
 [![GitHub Releases Stats](https://img.shields.io/github/downloads/containerscrew/tftools/total.svg?logo=github)](https://somsubhra.github.io/github-release-stats/?username=containerscrew&repository=tftools)
@@ -93,7 +96,6 @@ tftools usage
 
 # TO DO
 
-* When there are updates add flag --show-updates-output
 * Improve error handling
 * Add tests, although I have no experience
 * Code refactor is certainly needed!

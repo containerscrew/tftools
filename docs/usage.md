@@ -23,15 +23,17 @@
 
 ```shell
 terraform plan -out plan.tfplan
-terraform show -json plan.tfplan | tftools summarize --show-tags
+terraform show -json plan.tfplan | tftools summarize --show-tags --compact
 ```
 
-Or if you have the file in json:
+Or if you have the file already in json:
 
 ```shell
 terraform plan -out plan.tfplan
-terraform show -json plan.tfplan > plan.json
+terraform show -json plan.tfplan > demo.json
 cat plan.json | tftools summarize
+# or
+tftools summarize --compact --show-tags <demo.json
 ```
 
 ## Function for zsh
@@ -79,33 +81,27 @@ Edit your `~/.bashrc`
 
 ```shell
 tfsum() {
-  if [ -z "$1" ]; then
-    echo "You should type 'tfsum terraform|terragrunt'"
-    exit 1
-  fi
+  (
+    # Enable pipefail within the subshell
+    set -o pipefail
 
-  echo -en "Starting tf summary... Please wait\n"
+    # Create plan and pass through any arguments
+    # Make a random tfplan filename in /tmp
+    TMP_FILE=$(mktemp /tmp/tfplan.XXXXXX)
 
-  if [ -n "$2" ] && [ "$2" == "-v" ]; then
-    "$1" plan -out plan.tfplan
-  else
-    "$1" plan -out plan.tfplan 1> /dev/null
-  fi
-
-  "$1" show -json plan.tfplan | tftools summarize --show-tags
-  if [ -f "plan.tfplan" ]; then rm plan.tfplan; fi
+    # Execute terraform plan and other commands
+    terraform plan -lock=false -compact-warnings -out=${TMP_FILE} "$@" |
+      # Remove the line mentioning where the plan was saved
+      awk '!/Saved the plan to/{print;next} /Saved the plan to/{exit}' &&
+        terraform show -json ${TMP_FILE} |
+          tftools summarize --show-tags --show-unchanged --compact &&
+            rm ${TMP_FILE}
+  )
 }
 ```
 
-> [!NOTE]
-> Note that the bash function has the possibility of activating the output or not using the `-v` flag
-
-```shell
-tfsum terraform -v # show full output
-```
-
 > [!WARNING]
-> Adapt the rest of zsh or fish functions according to your needs.
+> Adapt the rest of zsh, fish or bash functions according to your needs.
 
 ## Load new functions
 
@@ -125,7 +121,6 @@ sudo cp scripts/tfsum.sh /usr/local/bin/tfsum
 
 > `/usr/local/bin` or other directory included in your path
 
-Inside the container image of [infratools](https://github.com/containerscrew/infratools), this custom binary is already contemplated.
 
 # Example
 
@@ -142,7 +137,7 @@ The example:
 > The following example is using the full output command
 
 ```shell
-tftools summarize --show-tags --show-unchanged <Documents/plan.json
+tftools summarize --show-tags --show-unchanged --compact <demo.json
 ```
 
 ![example](../assets/example.png)
