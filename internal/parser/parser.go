@@ -30,6 +30,8 @@ func Parser(output []byte, showTags, showUnchanged, compact, useMarkdown bool, u
 		return
 	}
 
+	// TODO: add also output changes using data.OutputChanges
+	
 	for _, resourceChange := range data.ResourceChanges {
 		processResourceChange(resourceChange, showTags)
 	}

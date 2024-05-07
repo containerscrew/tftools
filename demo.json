@@ -1,7 +1,14 @@
 {
   "format_version": "1.1",
-  "terraform_version": "1.2.9",
+  "terraform_version": "1.8.1",
   "planned_values": {
+    "outputs": {
+      "test": {
+        "sensitive": false,
+        "type": "string",
+        "value": "test2"
+      }
+    },
     "root_module": {
       "resources": [
         {
@@ -567,6 +574,18 @@
       }
     }
   ],
+  "output_changes": {
+    "test": {
+      "actions": [
+        "update"
+      ],
+      "before": "test1",
+      "after": "test2",
+      "after_unknown": false,
+      "before_sensitive": false,
+      "after_sensitive": false
+    }
+  },
   "prior_state": {
     "format_version": "1.0",
     "terraform_version": "1.2.9",

@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"runtime"
 
@@ -54,7 +55,7 @@ var summarizeCmd = &cobra.Command{
 
 		output, err := reader.Reader(os.Stdin)
 		if err != nil {
-			panic(err)
+			log.Fatal(err)
 		}
 
 		parser.Parser(output, showTags, showUnchanged, compact, useMarkdown, useJson, metrics, prettyJSON)
