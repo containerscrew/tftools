@@ -31,5 +31,5 @@ func Reader(stdin *os.File) ([]byte, error) {
 		}
 		return data, nil
 	}
-	return nil, fmt.Errorf("no data to be processed")
+	return nil, fmt.Errorf("no data to be processed. Please proide a valid tf plan json file")
 }
