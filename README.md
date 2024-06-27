@@ -60,9 +60,6 @@ curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/containe
 curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/containerscrew/tftools/main/scripts/install.sh | sh -s -- -v "v0.8.0"
 ```
 
-> [!NOTE]
-> If you don't specify `-v` flag, by default will install always latest version.
-
 ## Container image
 
 [In this other repo](https://github.com/containerscrew/infratools) I have a container image where you can find this tool `tftools` installed.
