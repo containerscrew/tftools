@@ -25,6 +25,9 @@ gosec: ## Run gosec
 update-dependencies: ## Update dependencies
 	go get -u ./...
 
+generate-changelog: ## Generate changelog using git cliff
+	git cliff --output CHANGELOG.md
+
 ##https://github.com/moovweb/gvm
 ##go get golang.org/x/tools/cmd/goimports
 ##go install golang.org/x/tools/cmd/goimports
