@@ -23,7 +23,7 @@ var (
 	resourcesList = make(map[string][]string)
 )
 
-func Parser(output []byte, showTags, showUnchanged, compact, useMarkdown bool, useJson bool, metrics bool, prettyJSON bool) {
+func Parser(output []byte, showTags, showUnchanged, compact, useMarkdown bool, useJson bool, metrics bool, prettyJSON bool, hideDetails bool) {
 	var data tfjson.Plan
 	if err := json.Unmarshal(output, &data); err != nil {
 		fmt.Printf("Error unmarshalling plan: %v\n", err)
@@ -31,13 +31,13 @@ func Parser(output []byte, showTags, showUnchanged, compact, useMarkdown bool, u
 	}
 
 	for _, resourceChange := range data.ResourceChanges {
-		processResourceChange(resourceChange, showTags)
+		processResourceChange(resourceChange, showTags, hideDetails)
 	}
 
 	PrintPlanSummary(showTags, showUnchanged, compact, useMarkdown, useJson, metrics, prettyJSON)
 }
 
-func processResourceChange(resourceChange *tfjson.ResourceChange, showTags bool) {
+func processResourceChange(resourceChange *tfjson.ResourceChange, showTags bool, hideDetails bool) {
 	isUpdate := contains(resourceChange.Change.Actions, tfjson.ActionUpdate)
 
 	if isUpdate {
@@ -60,7 +60,7 @@ func processResourceChange(resourceChange *tfjson.ResourceChange, showTags bool)
 		}
 
 		detailedChanges := processDetailedChanges(resourceChange)
-		if detailedChanges != "" {
+		if detailedChanges != "" && !hideDetails {
 			addActionToResourceListWithDetails(resourceChange.Change.Actions, resourceChange.Address, detailedChanges)
 		} else {
 			addActionToResourceList(resourceChange.Change.Actions, resourceChange.Address)

@@ -24,6 +24,7 @@ var (
 	useJson       bool
 	metrics       bool
 	prettyJSON    bool
+	hideDetails   bool
 )
 
 func init() {
@@ -34,6 +35,7 @@ func init() {
 	summarizeCmd.Flags().BoolVarP(&useJson, "json", "j", false, "Use JSON output")
 	summarizeCmd.Flags().BoolVarP(&metrics, "metrics", "s", false, "Output metrics")
 	summarizeCmd.Flags().BoolVarP(&prettyJSON, "pretty-json", "p", false, "Pretty JSON output")
+	summarizeCmd.Flags().BoolVarP(&hideDetails, "hide-details", "d", false, "Hide details of changes")
 }
 
 // summarizeCmd will parse the tf plan output json to scrape created|updated|deleted resources in a clear outout
@@ -57,7 +59,7 @@ var summarizeCmd = &cobra.Command{
 			panic(err)
 		}
 
-		parser.Parser(output, showTags, showUnchanged, compact, useMarkdown, useJson, metrics, prettyJSON)
+		parser.Parser(output, showTags, showUnchanged, compact, useMarkdown, useJson, metrics, prettyJSON, hideDetails)
 	},
 }
 
